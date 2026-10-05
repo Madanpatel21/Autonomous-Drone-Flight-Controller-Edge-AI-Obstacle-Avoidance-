@@ -97,7 +97,7 @@ blocker in the verification report, and the gate fails the run if it does not.
 | AI-003 | open | no model benchmarked; no latency number fabricated |
 | AI-005 | open | no dataset or model exists |
 | MFG-001 | partial | software package complete/audited; fabrication half gated |
-| OPS-001 | partial | software/evidence release record exists (RC-4, audited); operational release gated on BOARD/STM32_TOOLCHAIN |
+| OPS-001 | partial | software/evidence release record exists (RC-5, audited); operational release gated on BOARD/STM32_TOOLCHAIN |
 
 ## 3. Files created / modified
 

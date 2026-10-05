@@ -1,4 +1,8 @@
-# Autonomous Drone Flight Controller + Edge-AI Obstacle Avoidance
+# Autonomous Drone Flight Controller & Edge-AI Obstacle Avoidance
+
+<p align="center">
+  <img src="assets/autonomous-drone-hero.png" alt="Autonomous Drone - smarter flight, safer skies: STM32 flight controller with edge-AI perception" width="620">
+</p>
 
 **A complete flight-control stack for a quadcopter, built from the requirements up: custom STM32
 flight-control firmware, multi-sensor fusion, autonomous waypoint navigation with failsafe logic,
@@ -8,8 +12,7 @@ same control code be developed and verified before any board exists.**
 [![build](https://img.shields.io/badge/build-SIM%20%2B%20host%20HIL%20passing-brightgreen?style=flat-square)](#validation-architecture)
 [![tests](https://img.shields.io/badge/tests-2741%20checks%20passing-brightgreen?style=flat-square)](#verification-and-testing)
 [![regression](https://img.shields.io/badge/regression-33%20steps%20%2B%202%20gated%20skips-blue?style=flat-square)](#verification-and-testing)
-[![hardware](https://img.shields.io/badge/hardware%20target-gated%2C%20no%20board-lightgrey?style=flat-square)](#project-status)
-[![release](https://img.shields.io/badge/release-RC--3-blue?style=flat-square)](13_release/RELEASE_NOTES.md)
+[![release](https://img.shields.io/badge/release-RC--5-blue?style=flat-square)](13_release/RELEASE_NOTES.md)
 [![docs](https://img.shields.io/badge/docs-audited%2C%20machine--checked-blue?style=flat-square)](11_documentation/DOCUMENTATION_INDEX.md)
 
 | | |
@@ -389,6 +392,7 @@ release candidate, final audit.
 ## Repository Structure
 
 ```text
+assets/                 repository-facing visuals (README hero image); decorative, not evidence
 00_project_control/     requirements baseline, architecture, interfaces, safety analysis, decisions, status
 01_hardware/            component selection, power architecture, PCB constraints and pin map, bring-up plan
 02_firmware/            shared flight-control application: HAL contract, scheduler, drivers, estimation,
@@ -586,7 +590,7 @@ airworthiness or regulatory suitability of the hardware design described here.
 
 ---
 
-<sub>**Autonomous Drone Flight Controller** — Edge-AI · Embedded Systems · Robotics · Autonomous Flight</sub>
+<sub>**Autonomous Drone Flight Controller & Edge-AI Obstacle Avoidance** — Embedded Systems · Robotics · Autonomous Flight</sub>
 <br/>
 <sub>From sensors to autonomous flight. Software half: verified and audited. Hardware half: gated, and
 said so.</sub>

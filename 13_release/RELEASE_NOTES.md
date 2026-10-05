@@ -1,7 +1,10 @@
-# Release Notes — RC-4
+# Release Notes — RC-5
 
-**Release:** RC-4, software + evidence release candidate, 2026-10-05.
-Supersedes RC-3: the project license was set to MIT and the placeholder `LICENSE`
+**Release:** RC-5, software + evidence release candidate, 2026-10-05.
+Supersedes RC-4: the README identity changed (project name now uses `&`), the
+hardware-status badge was removed and an owner-supplied hero image is tracked at
+`assets/autonomous-drone-hero.png`; the tree is 591 files. No firmware behaviour
+changed. (RC-4 superseded RC-3: the project license was set to MIT and the placeholder `LICENSE`
 file was replaced with the canonical text (README license section updated); no
 firmware behaviour changed. (RC-3 superseded RC-2: the repository README — a
 digest-pinned item — was rebuilt as the project entry point with GitHub-native
