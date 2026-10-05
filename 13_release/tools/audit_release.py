@@ -18,7 +18,7 @@ from the tree and fails when it cannot:
     exists, and a PARTIAL row must name its gap.
 
     python 13_release/tools/audit_release.py
-    python 13_release/tools/audit_release.py --update-digests --release RC-2
+    python 13_release/tools/audit_release.py --update-digests --release RC-3
     python 13_release/tools/audit_release.py --selftest   # 7 fixture cases
 
 Re-baselining is deliberate (DEC-022/023): it changes the pin, so the release id

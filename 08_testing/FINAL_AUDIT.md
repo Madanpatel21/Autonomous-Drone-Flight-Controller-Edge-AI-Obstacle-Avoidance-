@@ -98,7 +98,7 @@ marker exists.
 | Testing | 33 executed steps + 2 H-gated SKIPs, exit 0; requirement/V&V/doc/release audits each with negative tests | `08_testing/`, run log |
 | Safety | FMEA 22 modes, fault tree T1–T7, PHA 13 rows, 6-claim safety case; five UNDETECTED branches carried openly | `00_project_control/04_safety/` |
 | Manufacturing | package `MFG-A` audited (8 present digest-pinned, 8 gated, probes live); fabrication half absent by design | `12_manufacturing/` |
-| Release | RC-2 (supersedes RC-1): 590-file tree digest + pinned items + probed gates; OPS-001 PARTIAL | `13_release/`, step 12 |
+| Release | RC-3 (supersedes RC-2/RC-1): 590-file tree digest + pinned items + probed gates; OPS-001 PARTIAL | `13_release/`, step 12 |
 | Documentation | 0 unmarked placeholders, index two-way, facts re-derived per run | `11_documentation/`, step 10 |
 
 ## 3. Files created / modified
@@ -147,7 +147,7 @@ None in firmware, on the wire or in the HAL. The audit is a read-only check.
 3. The marker register is only as good as the marker vocabulary; an abandoned
    sentence without a keyword is invisible to it. The audits for requirements,
    documents, V&V and release are the nets that catch those.
-4. The release manifest (RC-2) freezes this revision; any further edit must bump
+4. The release manifest (RC-3) freezes this revision; any further edit must bump
    the release id deliberately, by design.
 
 ## 8. Final status

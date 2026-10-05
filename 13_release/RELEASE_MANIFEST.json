@@ -1,8 +1,8 @@
 {
   "release": {
-    "id": "RC-2",
+    "id": "RC-3",
     "name": "autonomous-drone-flight-controller software release candidate",
-    "created": "2026-10-04",
+    "created": "2026-10-05",
     "owner_phase": 28,
     "requirement": "OPS-001",
     "scope": "Software + evidence release candidate: SIM/host build, test suite, audits and documentation, all reproducible on a host from this repository. NOT a flight release - no STM32 image, no PCB/fabrication data, no AI model and no per-unit records exist.",
@@ -12,7 +12,7 @@
   "source": {
     "vcs": "none in this workspace: the tree digest is the revision identifier (same rationale as DEC-022)",
     "tree_files": 590,
-    "tree_digest": "c6b7a98a0c780be231a34e132334909a02c11e7185c48bd0f3cc48603196cd8d",
+    "tree_digest": "b87e6ab92fd42c4df91d0f9054a6270221eee4b4fba2d85474ca60d418b4c5a1",
     "digest_rule": "sha256 over sorted 'relpath\\0sha256(file)' lines, skipping .git, build/, build-hil/, __pycache__ and 13_release/RELEASE_MANIFEST.json itself"
   },
   "build": {
@@ -49,7 +49,7 @@
       "item": "Project README",
       "status": "present",
       "path": "README.md",
-      "sha256": "35f60b55783534ecc87a881bb00953c412026b059d8ad15a0ab6cebc611ec337",
+      "sha256": "81b2b71085897de46a44ba3e08742053e2b967883a3c797ac5beab51e6e47514",
       "purpose": "the front door the release is described from"
     },
     {
@@ -89,7 +89,7 @@
       "item": "V&V review",
       "status": "present",
       "path": "08_testing/VNV_REVIEW.md",
-      "sha256": "9ae426f0e8b98da324a272eebaa0da598ea7add0828491625d15127a9854ef57",
+      "sha256": "c11f65d029ade10b6088e318963c3f26e5a17ab2385b24b58c2b00bd6fbdc61f",
       "purpose": "critical requirements verified or explicitly blocked; residual-risk register"
     },
     {

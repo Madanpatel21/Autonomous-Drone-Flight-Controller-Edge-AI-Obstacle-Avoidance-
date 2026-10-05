@@ -1,8 +1,11 @@
-# Release Notes — RC-2
+# Release Notes — RC-3
 
-**Release:** RC-2, software + evidence release candidate, 2026-10-04.
-Supersedes RC-1: the final audit (Phase 29) fixed two stale documents and added
-its own executable gate; no firmware behaviour changed.
+**Release:** RC-3, software + evidence release candidate, 2026-10-05.
+Supersedes RC-2: the repository README — a digest-pinned item — was rebuilt as the
+project entry point (GitHub-native Mermaid architecture diagrams, evidence-based
+status, executed commands as Quick Start); no firmware behaviour changed.
+(RC-2 superseded RC-1: the final audit in Phase 29 fixed two stale documents and
+added its own executable gate.)
 **Requirement:** OPS-001.
 **Manifest (authoritative):** [`RELEASE_MANIFEST.json`](RELEASE_MANIFEST.json) —
 digest-pinned, audited every run by [`tools/audit_release.py`](tools/audit_release.py)
