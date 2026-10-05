@@ -1,6 +1,6 @@
 {
   "release": {
-    "id": "RC-5",
+    "id": "RC-6",
     "name": "autonomous-drone-flight-controller software release candidate",
     "created": "2026-10-05",
     "owner_phase": 28,
@@ -12,7 +12,7 @@
   "source": {
     "vcs": "none in this workspace: the tree digest is the revision identifier (same rationale as DEC-022)",
     "tree_files": 591,
-    "tree_digest": "ffd3918002a90fef45a3349f75a4af7aff25e488a484dfa3d1a5c6be1ad6079a",
+    "tree_digest": "6cd213d5110f96ba62834e2f4e880cf1319e3c9217bbe8ff5a3448572dcc05f1",
     "digest_rule": "sha256 over sorted 'relpath\\0sha256(file)' lines, skipping .git, build/, build-hil/, __pycache__ and 13_release/RELEASE_MANIFEST.json itself"
   },
   "build": {
@@ -49,7 +49,7 @@
       "item": "Project README",
       "status": "present",
       "path": "README.md",
-      "sha256": "f23dd90c8aaccf8defb70c2b0e83aae5e824e5e887c7f348b8cb5491e423f173",
+      "sha256": "9e4cb4a2fb0ea103f1941b9a2c007da3828b99ba46abddf87fea70147804970b",
       "purpose": "the front door the release is described from"
     },
     {
@@ -89,7 +89,7 @@
       "item": "V&V review",
       "status": "present",
       "path": "08_testing/VNV_REVIEW.md",
-      "sha256": "b2c6fc784ee7f1f09d1fcfca858405afb3137e5cea82548073b6a7a298f09063",
+      "sha256": "1ffb42b49a57ef55656b7f28119e3fde5a521f85904323a38e214a6571649e2b",
       "purpose": "critical requirements verified or explicitly blocked; residual-risk register"
     },
     {

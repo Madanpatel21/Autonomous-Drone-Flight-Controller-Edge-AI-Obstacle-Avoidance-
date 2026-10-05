@@ -550,9 +550,6 @@ The prompts that drove each phase, the agent contract and the phase index are in
 
 ## Safety Notice
 
-> ⚠️ **This is an experimental engineering project, and the software half only. No flight test,
-> hardware validation or certification has been performed or is implied.**
-
 - Never perform uncontrolled flight testing, and never test with propellers attached during initial
   motor or firmware bring-up.
 - Complete SIM, SIL and HIL runs, then bench validation, then motor-disabled tests, before any
