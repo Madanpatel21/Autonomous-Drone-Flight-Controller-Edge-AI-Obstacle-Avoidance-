@@ -577,9 +577,12 @@ hardware, testing, review and release procedures belong there.
 
 ## License
 
-No license has been selected yet. The [`LICENSE`](LICENSE) file is a placeholder that says exactly
-that, so this project currently carries **no grant of rights** beyond what copyright law implies.
-Until a license is chosen, treat the content as all-rights-reserved.
+Released under the **[MIT License](LICENSE)** — © 2026 Madanpatel21. SPDX identifier: `MIT`.
+
+MIT permits commercial use, modification, distribution and private use, and requires only that the
+copyright and permission notices be preserved. It provides no warranty and no liability. The license
+covers the software and documentation in this repository; it makes no claim about the safety,
+airworthiness or regulatory suitability of the hardware design described here.
 
 ---
 

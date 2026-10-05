@@ -1,9 +1,12 @@
-# Release Notes — RC-3
+# Release Notes — RC-4
 
-**Release:** RC-3, software + evidence release candidate, 2026-10-05.
-Supersedes RC-2: the repository README — a digest-pinned item — was rebuilt as the
-project entry point (GitHub-native Mermaid architecture diagrams, evidence-based
-status, executed commands as Quick Start); no firmware behaviour changed.
+**Release:** RC-4, software + evidence release candidate, 2026-10-05.
+Supersedes RC-3: the project license was set to MIT and the placeholder `LICENSE`
+file was replaced with the canonical text (README license section updated); no
+firmware behaviour changed. (RC-3 superseded RC-2: the repository README — a
+digest-pinned item — was rebuilt as the project entry point with GitHub-native
+Mermaid architecture diagrams, an evidence-based status table and executed
+commands as Quick Start.)
 (RC-2 superseded RC-1: the final audit in Phase 29 fixed two stale documents and
 added its own executable gate.)
 **Requirement:** OPS-001.

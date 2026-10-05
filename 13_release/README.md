@@ -1,11 +1,12 @@
 # 13_release
 
 The release record. Phase 28 created the first software release candidate; Phase 29 re-baselined it as RC-2 after the final audit, and the repository README
-rebuild re-baselined it as RC-3 (no firmware behaviour change):
+rebuild re-baselined it as RC-3, and adopting the MIT license re-baselined it as
+RC-4 (no firmware behaviour change):
 
 | Artifact | What it is |
 |---|---|
-| [`RELEASE_MANIFEST.json`](RELEASE_MANIFEST.json) | Versioned, digest-pinned release candidate (RC-3; supersedes RC-2 and RC-1): source tree digest, 10 present items, 4 gated artifacts, build targets and reproduction commands. Authoritative. |
+| [`RELEASE_MANIFEST.json`](RELEASE_MANIFEST.json) | Versioned, digest-pinned release candidate (RC-4; supersedes RC-3, RC-2 and RC-1): source tree digest, 10 present items, 4 gated artifacts, build targets and reproduction commands. Authoritative. |
 | [`RELEASE_NOTES.md`](RELEASE_NOTES.md) | Human summary: what the release is and is not, evidence, reproduction, requirement status. |
 | [`tools/audit_release.py`](tools/audit_release.py) | Re-derives every manifest claim from the tree (regression step 12); `--update-digests --release <id>` re-baselines deliberately; 7 fixture cases prove it can fail. |
 | [`RELEASE_MANIFEST_TEMPLATE.md`](RELEASE_MANIFEST_TEMPLATE.md) | Pre-Phase-28 template, kept as the historical layout sketch. |
