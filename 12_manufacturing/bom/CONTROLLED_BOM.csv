@@ -1,0 +1,18 @@
+# Revision: MFG-A
+item,ref_des,function,mpn,manufacturer,qty,alternate,status,gate,notes
+MFG-BOM-01,U1,MCU,STM32F765VIT6,STMicroelectronics,1,none-approved,selected,,LQFP100 2 MB flash FPU; HW-001 baseline DEC-002; pin map PCB_DESIGN_RECORD.md v1
+MFG-BOM-02,U2,IMU,ICM-42688-P,TDK,1,none-approved,selected,,LGA-14 SPI; mount/isolation per PCB_CONSTRAINTS section 1 (HW-010)
+MFG-BOM-03,U3,Barometer,BMP390,Bosch Sensortec,1,none-approved,selected,,pressure rate <=10 Hz (HW-003)
+MFG-BOM-04,U4,GNSS receiver,NEO-M9N,u-blox,1,none-approved,selected,,module; >=10 Hz GPS+GNSS constellations (HW-004)
+MFG-BOM-05,"U5,U6",ToF rangefinder,TF-Luna,Benewake,2,none-approved,selected,,forward + downward; >=4 m >=50 Hz (HW-005)
+MFG-BOM-06,U7,Optical flow,PMW3901,PixArt,1,none-approved,selected,,module; estimator flow path still OPEN (EST-003)
+MFG-BOM-07,U8,Current monitor,INA226,Texas Instruments,1,none-approved,provisional,,shunt value fixed at schematic review; ADC accuracy OPEN (H) per HW-007
+MFG-BOM-08,U9,Companion computer,Raspberry Pi 5 4GB + Hailo-8L AI Kit + Camera Module 3,Raspberry Pi Ltd,1,none-approved,selected,,no model/dataset exists (AI-003/AI-005 OPEN)
+MFG-BOM-09,U10,5V buck regulator,,,1,none-approved,tbd,EDA_TOOLCHAIN,>=5 A; 1.3 W EST dissipation; MPN locked at schematic CAD (POWER_ARCHITECTURE.md)
+MFG-BOM-10,U11,3V3 regulator,,,1,none-approved,tbd,EDA_TOOLCHAIN,MPN locked at schematic CAD
+MFG-BOM-11,"D1,F1,Q1",Power protection set,,,3,none-approved,class-selected,EDA_TOOLCHAIN,TVS >=17 V standoff + fuse + reverse MOS; part set fixed at schematic CAD (HW-009)
+MFG-BOM-12,U12,4-in-1 ESC,,,1,none-approved,class-selected,THRUST_STAND,DShot600 >=45 A BLHeli_32/AM32 class (HW-006); current class follows measured motor current
+MFG-BOM-13,"M1,M2,M3,M4",Motor,2207 1750-2400KV class,,4,none-approved,class-selected,THRUST_STAND,class only; part locked after measured thrust (SYS-007)
+MFG-BOM-14,"P1,P2,P3,P4",Propeller,5x4.3x3 class,,8,none-approved,class-selected,THRUST_STAND,qty includes one spare set; dialed in against measured thrust
+MFG-BOM-15,BT1,Battery,4S Li-ion 4500 mAh / LiPo 1500-2200 class,,1,none-approved,class-selected,THRUST_STAND,capacity/weight confirmed against measured hover power (SYS-005/SYS-007)
+MFG-BOM-16,"J1,J2,J3,J4,J5,J6",Connector set,JST-GH keyed family,,6,none-approved,class-selected,EDA_TOOLCHAIN,positions and count fixed by schematic CAD; keyed/polarized per HW-009 and ICD-05

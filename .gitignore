@@ -1,0 +1,15 @@
+# Build artifacts
+build/
+dist/
+*.elf
+*.hex
+*.bin
+*.map
+*.o
+*.d
+__pycache__/
+.venv/
+# Generated data
+10_data/*
+# ML checkpoints
+03_edge_ai/training/checkpoints/*

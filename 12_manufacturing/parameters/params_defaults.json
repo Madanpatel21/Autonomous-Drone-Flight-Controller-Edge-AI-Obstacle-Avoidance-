@@ -1,0 +1,38 @@
+{
+  "generator": "dump_param_defaults.c (links firmware parameters.c)",
+  "struct_size": 88,
+  "blob_len": 90,
+  "crc": 63177,
+  "field_layout": [
+    { "name": "magic", "type": "u32", "offset": 0 },
+    { "name": "version", "type": "u16", "offset": 4 },
+    { "name": "rate_roll_kp", "type": "f32", "offset": 8 },
+    { "name": "rate_roll_ki", "type": "f32", "offset": 12 },
+    { "name": "rate_roll_kd", "type": "f32", "offset": 16 },
+    { "name": "rate_pitch_kp", "type": "f32", "offset": 20 },
+    { "name": "rate_pitch_ki", "type": "f32", "offset": 24 },
+    { "name": "rate_pitch_kd", "type": "f32", "offset": 28 },
+    { "name": "rate_yaw_kp", "type": "f32", "offset": 32 },
+    { "name": "rate_yaw_ki", "type": "f32", "offset": 36 },
+    { "name": "rate_yaw_kd", "type": "f32", "offset": 40 },
+    { "name": "batt_warn_v", "type": "f32", "offset": 44 },
+    { "name": "batt_rtl_v", "type": "f32", "offset": 48 },
+    { "name": "batt_land_v", "type": "f32", "offset": 52 }
+  ],
+  "fields": {
+    "magic": 1346458161,
+    "version": 1,
+    "rate_roll_kp": 0.135000005,
+    "rate_roll_ki": 0.0500000007,
+    "rate_roll_kd": 0.00300000003,
+    "rate_pitch_kp": 0.135000005,
+    "rate_pitch_ki": 0.0500000007,
+    "rate_pitch_kd": 0.00300000003,
+    "rate_yaw_kp": 0.200000003,
+    "rate_yaw_ki": 0.0299999993,
+    "rate_yaw_kd": 0,
+    "batt_warn_v": 3.5,
+    "batt_rtl_v": 3.4000001,
+    "batt_land_v": 3.0999999
+  }
+}

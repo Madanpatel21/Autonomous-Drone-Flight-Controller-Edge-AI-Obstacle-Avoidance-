@@ -1,0 +1,16 @@
+project:
+  name: autonomous-drone-flight-controller-edge-ai
+  status: architecture
+  production_controller: STM32
+  development_controller: SIM
+  companion_ai: TBD
+  safety_critical_control: true
+  custom_flight_firmware: true
+  custom_pcb: true
+  edge_ai: true
+  hardware_free_development: true
+  shared_application_logic: true
+  hal_required: true
+validation:
+  primary_path: SIM->SIL->HIL->STM32_BENCH->MOTOR_OFF->CONTROLLED_FLIGHT
+  simulation_may_not_claim_hardware_validation: true

@@ -1,0 +1,29 @@
+{
+  "updated": "2026-10-04",
+  "phase": 26,
+  "note": "Single source of truth for counts quoted in prose. 'derived' values are re-read from their source files by 11_documentation/tools/docs_audit.py; 'observed' values are supplied by 08_testing/regression_tests/run_regression.sh from the run that just happened, so a stale number fails the regression instead of aging silently in a document.",
+  "derived": {
+    "package_revision": "MFG-A",
+    "package_items": 16,
+    "package_items_present": 8,
+    "package_items_gated": 8,
+    "telemetry_schema_version": 2,
+    "telemetry_payload_bytes": 53,
+    "param_blob_version": 1,
+    "param_blob_crc": 63177,
+    "cmd_gate_version": 1
+  },
+  "observed": {
+    "unit_checks": 2741,
+    "unit_checks_total": 2741,
+    "executed_steps": 33,
+    "gated_skips": 2,
+    "scenarios": 8,
+    "hil_host_steps": 6,
+    "gs_tests": 18,
+    "baseline_requirements": 83,
+    "algorithm_files": 53,
+    "package_audit_checks": 7,
+    "package_audit_negative_cases": 16
+  }
+}

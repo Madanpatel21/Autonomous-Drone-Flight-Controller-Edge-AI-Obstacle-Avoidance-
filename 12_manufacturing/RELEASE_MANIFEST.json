@@ -1,0 +1,282 @@
+{
+  "package": {
+    "name": "autonomous-drone-flight-controller-mfg",
+    "revision": "MFG-A",
+    "created": "2026-10-04",
+    "owner_phase": 25,
+    "requirement": "MFG-001",
+    "scope": "Flight-controller build package. Software-complete and audited; every fabrication, image and per-unit item is gated by a named requirement or facility blocker. Audit: 12_manufacturing/tools/audit_release_manifest.py, run as a regression step."
+  },
+  "facility_gates": {
+    "EDA_TOOLCHAIN": {
+      "blocker": "no schematic/PCB CAD tool in this workspace: no layout, gerber, drill, pick-and-place or drawing can be produced, so the fabrication half of MFG-001 cannot exist",
+      "resolved_when": "an approved layout source exists and its fabrication export is digest-pinned in this manifest",
+      "evidence": "12_manufacturing/fabrication/FABRICATION_DATA_SPEC.md; PCB_CONSTRAINTS.md records 'No EDA toolchain available in this environment'",
+      "probes": [
+        "no_match:01_hardware/**/*.kicad_pcb",
+        "no_match:01_hardware/**/*.kicad_sch",
+        "no_match:01_hardware/**/*.brd",
+        "no_match:01_hardware/**/*.SchDoc",
+        "no_match:01_hardware/**/*.gbr",
+        "no_match:12_manufacturing/gerbers/*"
+      ]
+    },
+    "STM32_TOOLCHAIN": {
+      "blocker": "no arm-none-eabi-gcc on this host: the shared application has never been compiled for the STM32 target, so no releasable image exists",
+      "resolved_when": "the stm32 target builds and the image is placed in 12_manufacturing/release/ and pinned here",
+      "evidence": "run_regression.sh hardware step reports SKIP (arm-none-eabi-gcc not installed)",
+      "probes": [
+        "toolchain_absent:arm-none-eabi-gcc"
+      ]
+    },
+    "BOARD": {
+      "blocker": "no flight-controller board exists: pre-power checks, power-up, sensor bring-up, motor-off DShot validation, failsafe verification and every per-unit QC record are unexecuted",
+      "resolved_when": "a serialized unit produces qc/records/<serial>.json",
+      "evidence": "01_hardware/01_flight_controller/BRINGUP_EXECUTION_RECORD.md (measurements NOT EXECUTED); PROGRAMMING_AND_PRODUCTION_TEST.md PT-2..PT-7",
+      "probes": [
+        "no_match:12_manufacturing/qc/records/*"
+      ]
+    },
+    "THRUST_STAND": {
+      "blocker": "no measured motor/prop thrust or current data: motor, propeller, ESC and battery remain class-selected because their class cannot be confirmed against the mass and endurance budget (SYS-007)",
+      "resolved_when": "a thrust/current measurement record exists and the pins are locked in CONTROLLED_BOM.csv",
+      "evidence": "01_hardware/00_system/POWER_BUDGET.md (hover power and mass budget); CONTROLLED_BOM.csv rows MFG-BOM-12..15",
+      "probes": [
+        "no_match:01_hardware/04_motor_esc/**/*.csv",
+        "no_match:01_hardware/04_motor_esc/**/*thrust*"
+      ]
+    }
+  },
+  "version_bindings": [
+    {
+      "name": "telemetry_schema_fc",
+      "file": "02_firmware/flight_controller/communication/telemetry/telemetry.h",
+      "regex": "TELEM_SCHEMA_VER\\s+([0-9]+)u",
+      "expect": 2,
+      "note": "binary status record schema the FC emits (v2 added the safety action byte)"
+    },
+    {
+      "name": "telemetry_schema_gs",
+      "file": "06_communication/ground_station/gs_protocol.py",
+      "regex": "TELEM_SCHEMA_VER\\s*=\\s*([0-9]+)",
+      "must_equal": "telemetry_schema_fc",
+      "note": "a decoder behind the encoder is how a fleet loses its telemetry silently"
+    },
+    {
+      "name": "telemetry_payload_fc",
+      "file": "02_firmware/flight_controller/communication/telemetry/telemetry.c",
+      "regex": "TELEM_STATUS_PAYLOAD\\s+([0-9]+)u",
+      "expect": 53
+    },
+    {
+      "name": "telemetry_payload_gs",
+      "file": "06_communication/ground_station/gs_protocol.py",
+      "regex": "TELEM_STATUS_PAYLOAD\\s*=\\s*([0-9]+)",
+      "must_equal": "telemetry_payload_fc"
+    },
+    {
+      "name": "cmd_gate_version",
+      "file": "02_firmware/flight_controller/communication/command/cmd_gate.h",
+      "regex": "CMD_VERSION\\s+([0-9]+)u",
+      "expect": 1,
+      "note": "inbound command frame version the FC will accept"
+    },
+    {
+      "name": "param_blob_version_fw",
+      "file": "02_firmware/flight_controller/configuration/parameters.c",
+      "regex": "p->version\\s*=\\s*([0-9]+)",
+      "expect": 1,
+      "note": "version written by params_defaults() in the firmware"
+    },
+    {
+      "name": "param_blob_version_released",
+      "file": "12_manufacturing/parameters/params_defaults.json",
+      "regex": "\"version\":\\s*([0-9]+)",
+      "must_equal": "param_blob_version_fw",
+      "note": "the blob in the package must be the blob the firmware currently defines"
+    }
+  ],
+  "artifact_checks": [
+    {
+      "id": "CHK-PARAM-DEFAULT-FILE",
+      "kind": "param_default_blob",
+      "blob": "12_manufacturing/parameters/params_defaults.bin",
+      "json": "12_manufacturing/parameters/params_defaults.json"
+    },
+    {
+      "id": "CHK-CONTROLLED-BOM",
+      "kind": "bom_csv",
+      "csv": "12_manufacturing/bom/CONTROLLED_BOM.csv"
+    }
+  ],
+  "items": [
+    {
+      "id": "MFG-PKG-01",
+      "item": "Controlled BOM",
+      "status": "present",
+      "path": "12_manufacturing/bom/CONTROLLED_BOM.csv",
+      "sha256": "e89fcd8eed204c885710d7c1df74c2f1eec70b621cc0b7adab75dfa265f17061",
+      "purpose": "the BOM a build is released against; unpinned rows carry a gate"
+    },
+    {
+      "id": "MFG-PKG-02",
+      "item": "Parameter default file (blob)",
+      "status": "present",
+      "path": "12_manufacturing/parameters/params_defaults.bin",
+      "sha256": "7ddfeff86144e76d7a52df8c0efaa59cb8adcb004d1d20bd5884806485514fa3",
+      "purpose": "exact bytes params_store() writes, generated from the firmware's own defaults"
+    },
+    {
+      "id": "MFG-PKG-03",
+      "item": "Parameter default file (field manifest)",
+      "status": "present",
+      "path": "12_manufacturing/parameters/params_defaults.json",
+      "sha256": "3ecb53902031c762b0e7825a258d5be0d51a00ac0ae01b9c31d06679eb52fa06",
+      "purpose": "layout and values the audit re-derives independently from the blob"
+    },
+    {
+      "id": "MFG-PKG-04",
+      "item": "Fabrication data specification",
+      "status": "present",
+      "path": "12_manufacturing/fabrication/FABRICATION_DATA_SPEC.md",
+      "sha256": "7898f727f9835526a6e610bf7ad5c67ea5f06077ef3acf4ea8f90c2047c89f75",
+      "purpose": "export contract and acceptance for gerbers/drill/pick-and-place/stencil"
+    },
+    {
+      "id": "MFG-PKG-05",
+      "item": "PCB and assembly inspection criteria",
+      "status": "present",
+      "path": "12_manufacturing/pcb_inspection/INSPECTION_CRITERIA.md",
+      "sha256": "01117a2575491395fd9b8865b81f4465234526b8c0d1c93f6adb42a79e739527",
+      "purpose": "accept/reject criteria traceable to approved constraints"
+    },
+    {
+      "id": "MFG-PKG-06",
+      "item": "Assembly sequence",
+      "status": "present",
+      "path": "12_manufacturing/assembly/ASSEMBLY_SEQUENCE.md",
+      "sha256": "e386879208d28cbdf658b135c6cf0c6756579b98ad0be03c8573eb20ac70839a",
+      "purpose": "assembly order, IMU-zone rules, pre-power gate"
+    },
+    {
+      "id": "MFG-PKG-07",
+      "item": "Programming and production test procedure",
+      "status": "present",
+      "path": "12_manufacturing/PROGRAMMING_AND_PRODUCTION_TEST.md",
+      "sha256": "e04a07e57cafe2027f24c22cb17ad374b8c0574074d5d4cf5e6f60d4a9f52e0e",
+      "purpose": "programming, serial scheme, PT-0..PT-7 with per-station gate"
+    },
+    {
+      "id": "MFG-PKG-08",
+      "item": "Manufacturing release checklist",
+      "status": "present",
+      "path": "12_manufacturing/MANUFACTURING_RELEASE_CHECKLIST.md",
+      "sha256": "f586520094791d266b89bb335934410bb75e64f4748bdc9f07e9010c41e23a15",
+      "purpose": "21-line release checklist with evidence or gate per line"
+    },
+    {
+      "id": "MFG-PKG-09",
+      "item": "Gerbers",
+      "status": "gated",
+      "expected_path": "12_manufacturing/gerbers/",
+      "expect_empty": true,
+      "gates": [
+        "HW-010"
+      ],
+      "facility_gates": [
+        "EDA_TOOLCHAIN"
+      ],
+      "reason": "a gerber is a projection of a layout; no layout exists, and fabricating one from prose would be worse than shipping nothing"
+    },
+    {
+      "id": "MFG-PKG-10",
+      "item": "Drill files",
+      "status": "gated",
+      "expected_path": "12_manufacturing/drill_files/",
+      "expect_empty": true,
+      "gates": [
+        "HW-010"
+      ],
+      "facility_gates": [
+        "EDA_TOOLCHAIN"
+      ],
+      "reason": "same source as the gerbers"
+    },
+    {
+      "id": "MFG-PKG-11",
+      "item": "Pick-and-place data",
+      "status": "gated",
+      "expected_path": "12_manufacturing/pcb_inspection/pick_and_place.csv",
+      "gates": [
+        "HW-010"
+      ],
+      "facility_gates": [
+        "EDA_TOOLCHAIN"
+      ],
+      "reason": "placement must come from the approved layout, not from a hand-made table"
+    },
+    {
+      "id": "MFG-PKG-12",
+      "item": "Stencil aperture data",
+      "status": "gated",
+      "expected_path": "12_manufacturing/release/stencil/",
+      "gates": [
+        "HW-010"
+      ],
+      "facility_gates": [
+        "EDA_TOOLCHAIN"
+      ],
+      "reason": "paste reduction for the QFN/LGA pads is a layout property"
+    },
+    {
+      "id": "MFG-PKG-13",
+      "item": "Assembly drawing and 3D model",
+      "status": "gated",
+      "expected_path": "12_manufacturing/assembly/",
+      "gates": [
+        "HW-010"
+      ],
+      "facility_gates": [
+        "EDA_TOOLCHAIN"
+      ],
+      "reason": "a drawing and a STEP model are outputs of the layout"
+    },
+    {
+      "id": "MFG-PKG-14",
+      "item": "Firmware image (STM32 release build)",
+      "status": "gated",
+      "expected_path": "12_manufacturing/release/",
+      "facility_gates": [
+        "STM32_TOOLCHAIN"
+      ],
+      "reason": "the toolchain that produces the image is absent; FW-001's SIM build is MET and is not a substitute for a target image"
+    },
+    {
+      "id": "MFG-PKG-15",
+      "item": "Per-unit QC records (production test execution)",
+      "status": "gated",
+      "expected_path": "12_manufacturing/qc/records/",
+      "expect_empty": true,
+      "gates": [
+        "HW-010"
+      ],
+      "facility_gates": [
+        "BOARD"
+      ],
+      "reason": "a test record requires a unit; PT-1's record is the regression log and is not per-unit"
+    },
+    {
+      "id": "MFG-PKG-16",
+      "item": "Release record (operational)",
+      "status": "gated",
+      "expected_path": "12_manufacturing/release/RELEASE_RECORD_*.md",
+      "gates": [
+        "OPS-001"
+      ],
+      "facility_gates": [
+        "BOARD"
+      ],
+      "reason": "Phase 28 owns the operational release: FRR sign-off, motor-off bench pass, geofence and RC-failsafe verification"
+    }
+  ]
+}

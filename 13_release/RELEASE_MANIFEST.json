@@ -1,0 +1,160 @@
+{
+  "release": {
+    "id": "RC-2",
+    "name": "autonomous-drone-flight-controller software release candidate",
+    "created": "2026-10-04",
+    "owner_phase": 28,
+    "requirement": "OPS-001",
+    "scope": "Software + evidence release candidate: SIM/host build, test suite, audits and documentation, all reproducible on a host from this repository. NOT a flight release - no STM32 image, no PCB/fabrication data, no AI model and no per-unit records exist.",
+    "status": "PARTIAL - software-complete and audited; operational (flyable) release gated on BOARD / STM32_TOOLCHAIN",
+    "audit": "13_release/tools/audit_release.py, run as a regression step; --update-digests re-baselines deliberately"
+  },
+  "source": {
+    "vcs": "none in this workspace: the tree digest is the revision identifier (same rationale as DEC-022)",
+    "tree_files": 590,
+    "tree_digest": "c6b7a98a0c780be231a34e132334909a02c11e7185c48bd0f3cc48603196cd8d",
+    "digest_rule": "sha256 over sorted 'relpath\\0sha256(file)' lines, skipping .git, build/, build-hil/, __pycache__ and 13_release/RELEASE_MANIFEST.json itself"
+  },
+  "build": {
+    "reproduce": [
+      "cd 02_firmware && cmake -S . -B build && cmake --build build -j 4",
+      "cmake -S . -B build-hil -DFC_TARGET=hil && cmake --build build-hil -j 4",
+      "bash 08_testing/regression_tests/run_regression.sh"
+    ],
+    "targets": {
+      "sim": {
+        "status": "built",
+        "evidence": "runner steps 1-8: build, 2741/2741 suite, determinism, scenarios, GS, HIL host rig, audits"
+      },
+      "hil_host": {
+        "status": "built",
+        "evidence": "runner step 6: fc_hil.exe + hil_rig.exe, 6 executed host steps"
+      },
+      "stm32": {
+        "status": "gated",
+        "gate": "STM32_TOOLCHAIN",
+        "expected_absent": "12_manufacturing/release/"
+      }
+    }
+  },
+  "gates": {
+    "STM32_TOOLCHAIN": "no arm-none-eabi-gcc on this host: no releasable STM32 image exists",
+    "EDA_TOOLCHAIN": "no schematic/PCB CAD tool: no layout or fabrication data exists",
+    "BOARD": "no flight-controller board exists: no calibration, bring-up or per-unit record exists",
+    "AI_MODEL": "no dataset, model or training harness exists: AI-003/AI-005 are OPEN and nothing is fabricated"
+  },
+  "items": [
+    {
+      "id": "REL-01",
+      "item": "Project README",
+      "status": "present",
+      "path": "README.md",
+      "sha256": "35f60b55783534ecc87a881bb00953c412026b059d8ad15a0ab6cebc611ec337",
+      "purpose": "the front door the release is described from"
+    },
+    {
+      "id": "REL-02",
+      "item": "Documentation index",
+      "status": "present",
+      "path": "11_documentation/DOCUMENTATION_INDEX.md",
+      "sha256": "640e96b3e612a4d5108edde3a846334768e781e55d9f4ee099db61381e9256f2",
+      "purpose": "task-oriented entry point; document status is machine-checked"
+    },
+    {
+      "id": "REL-03",
+      "item": "New-engineer walkthrough",
+      "status": "present",
+      "path": "11_documentation/NEW_ENGINEER_WALKTHROUGH.md",
+      "sha256": "723cd8570e9bfaede969f324715996a3270742fd204e2c944cab60a5cd5544c0",
+      "purpose": "every command executed in this workspace, with observed output"
+    },
+    {
+      "id": "REL-04",
+      "item": "Project facts (single source of counts)",
+      "status": "present",
+      "path": "11_documentation/PROJECT_FACTS.json",
+      "sha256": "bc44ab2894f5663170910dd8f8ed330709e89424844b386715033372db106ccd",
+      "purpose": "counts quoted in prose; re-derived and run-compared by docs_audit.py"
+    },
+    {
+      "id": "REL-05",
+      "item": "Verification report (83 status rows)",
+      "status": "present",
+      "path": "08_testing/VERIFICATION_REPORT.md",
+      "sha256": "5a9c944e23b5a6bee4087d4252f4ccc179bee5a5370c40a443968d2aa76300cd",
+      "purpose": "requirement evidence; OPS-001 row must not read OPEN while this release exists"
+    },
+    {
+      "id": "REL-06",
+      "item": "V&V review",
+      "status": "present",
+      "path": "08_testing/VNV_REVIEW.md",
+      "sha256": "9ae426f0e8b98da324a272eebaa0da598ea7add0828491625d15127a9854ef57",
+      "purpose": "critical requirements verified or explicitly blocked; residual-risk register"
+    },
+    {
+      "id": "REL-07",
+      "item": "Regression entry point",
+      "status": "present",
+      "path": "08_testing/regression_tests/run_regression.sh",
+      "sha256": "8563331d22eb1b889ac554599068869b2f1128a180b3f0e844a5796cb05c416a",
+      "purpose": "the reproducibility command for every claim in this release"
+    },
+    {
+      "id": "REL-08",
+      "item": "Manufacturing package manifest (MFG-A)",
+      "status": "present",
+      "path": "12_manufacturing/RELEASE_MANIFEST.json",
+      "sha256": "c6a547d9b373af8ed5b1fb92e3f1a2c7d102f8af152841685d8d989416c5306a",
+      "purpose": "the controlled build package this release distributes"
+    },
+    {
+      "id": "REL-09",
+      "item": "Parameter default file",
+      "status": "present",
+      "path": "12_manufacturing/parameters/params_defaults.bin",
+      "sha256": "7ddfeff86144e76d7a52df8c0efaa59cb8adcb004d1d20bd5884806485514fa3",
+      "purpose": "exact bytes the firmware's own defaults produce; regenerated every run"
+    },
+    {
+      "id": "REL-10",
+      "item": "Release documentation checklist",
+      "status": "present",
+      "path": "11_documentation/RELEASE_DOCUMENTATION_CHECKLIST.md",
+      "sha256": "659f505b8ef5cafd9fb9cd7d094c662ce1aead0ed2534c11c27f76aaff3d2d14",
+      "purpose": "what a release must be able to say, with the evidence or gate per line"
+    },
+    {
+      "id": "REL-G1",
+      "item": "STM32 firmware image",
+      "status": "gated",
+      "gate": "STM32_TOOLCHAIN",
+      "expected_absent": "12_manufacturing/release/",
+      "reason": "nothing has ever been compiled for the production target"
+    },
+    {
+      "id": "REL-G2",
+      "item": "PCB / fabrication release",
+      "status": "gated",
+      "gate": "EDA_TOOLCHAIN",
+      "expected_absent": "12_manufacturing/gerbers/",
+      "reason": "a gerber is a projection of a layout; no layout exists"
+    },
+    {
+      "id": "REL-G3",
+      "item": "AI model and model card",
+      "status": "gated",
+      "gate": "AI_MODEL",
+      "expected_absent": "03_edge_ai/models/",
+      "reason": "AI-003/AI-005 OPEN; no latency number or model card is fabricated"
+    },
+    {
+      "id": "REL-G4",
+      "item": "Per-unit QC records",
+      "status": "gated",
+      "gate": "BOARD",
+      "expected_absent": "12_manufacturing/qc/records/",
+      "reason": "no serialized unit exists"
+    }
+  ]
+}
